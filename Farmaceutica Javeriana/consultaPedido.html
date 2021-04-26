@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+
+    <script lang="javascript">
+        function prueba() {
+            let id = document.getElementById("id").value;
+            let url = 'https://farmaceutica-javeriana.herokuapp.com/api/v1/pedidos/' + id;
+            fetch(url)
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(function(data) {
+                    let inputDireccion = document.getElementById("direccion");
+                    inputDireccion.value = data.direccionEntrega;
+                    let inputMedicamento = document.getElementById("medicamento");
+                    inputMedicamento.value = data.items[0].nombre;
+                    let precio = document.getElementById("valor").value;
+                    precio = data.items[0].precioUnitario;
+                    let cantidad = document.getElementById("cantidad").value;
+                    precio = data.items[0].cantidadSolicitada;
+                    let valorTotal = document.getElementById("valorTotal").value;
+                    precio = data.totalPedido;
+                })
+        }
+    </script>
+</head>
+
+<body>
+    <form class="formulario" method="GET">
+        <h1>Consulta Pedido</h1>
+        <div class="contenedor">
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Ingrese el ID del pedido" id="id" value="">
+            </div>
+
+            <input type="button" value="Consultar Pedido" class="button" onclick="prueba()">
+        </div>
+    </form>
+
+    <div class="formularioRespuesta">
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <input type="text" placeholder="Direccion Envio Pedido" id="direccion">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Nombre Medicamento" id="medicamento">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Valor Medicamento" id="valor">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Cantidad Medicamentos" id="cantidad">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Valor Total Pedido" id="valorTotal">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

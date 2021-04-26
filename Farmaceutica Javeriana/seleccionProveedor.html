@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+
+    <script lang="javascript">
+        function prueba() {
+            let url = 'https://farmaceutica-javeriana.herokuapp.com/api/v1/pedidos/17/ofertas';
+            fetch(url)
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(function(data) {
+                    let inputPedido = document.getElementById("pedido");
+                    inputPedido.value = data[0].id;
+                    let costo = document.getElementById("costo");
+                    costo.value = data[0].costo;
+                    let dias = document.getElementById("dias");
+                    dias.value = data[0].diasParaEntrega;
+                    let proveedor = document.getElementById("proveedor");
+                    proveedor.value = data[0].proveedor;
+                    let cliente = document.getElementById("cliente");
+                    cliente.value = data[0].cliente;
+                    console.log(data);
+                })
+        }
+    </script>
+</head>
+
+<body>
+    <form class="formulario" method="GET">
+        <h1>Consulta Pedido</h1>
+        <div class="contenedor">
+            <input type="button" value="Consultar Ofertas Proveedores" class="button" onclick="prueba()">
+        </div>
+    </form>
+
+    <div class="formularioRespuesta">
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <input type="text" placeholder="ID Pedido" id="pedido">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Costo Envio" id="costo">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Dias Entrega" id="dias">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Proveedor" id="proveedor">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Cliente" id="cliente">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

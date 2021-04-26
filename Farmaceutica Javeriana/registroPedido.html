@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+
+    <script>
+        fetch('https://farmaceutica-javeriana.herokuapp.com/api/v1/medicamentos').then(function(result) {
+            if (result.ok) {
+                return result.json();
+            }
+        }).then(function(data) {
+            data.forEach(function(element) {
+                let select = document.getElementById("select");
+                let opt = document.createElement("option");
+                opt.appendChild(document.createTextNode(element.nombre));
+                opt.value = element.id;
+
+                select.appendChild(opt);
+            })
+        })
+
+        function prueba() {
+
+            fetch('https://farmaceutica-javeriana.herokuapp.com/api/v1/clientes/11/pedidos', {
+                    method: 'post',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        direccionEntrega: document.getElementById("direccion").value,
+                        zipDestino: document.getElementById("postal").value,
+                        items: [{
+                            idMedicamento: document.getElementById("select").value,
+                            cantidadSolicitada: document.getElementById("cantidadProductos").value
+                        }]
+                    })
+                }).then(res => res.json())
+                .then(res => console.log(res));
+        }
+    </script>
+</head>
+
+<body>
+    <form class="formulario">
+        <h1>Registrar Pedido</h1>
+        <div class="contenedor">
+
+            <div class="input-contenedor">
+                <div class="lbl">
+                    <label>Seleccione El Producto</label>
+                </div>
+                <select name="miSelect" id="select">
+                </select>
+            </div>
+
+            <div class="input-contenedor">
+                <input type="number" placeholder="Ingrese cantidad Productos" id="cantidadProductos">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="text" placeholder="Direccion Envio" id="direccion">
+            </div>
+
+            <div class="input-contenedor">
+                <input type="number" placeholder="Codigo Postal" id="postal">
+            </div>
+
+            <input type="button" value="Registrar Pedido" class="button" onclick="prueba()">
+
+        </div>
+    </form>
+</body>
+
+</html>

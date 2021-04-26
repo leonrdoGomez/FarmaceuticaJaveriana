@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script>
+        function prueba() {
+            fetch('https://farmaceutica-javeriana.herokuapp.com/api/v1/clientes', {
+                    method: 'post',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nit: document.getElementById("NIT").value,
+                        razonSocial: document.getElementById("nombreEmpresa").value,
+                        direccion: document.getElementById("direccion").value,
+                        contrasena: document.getElementById("contrasena").value,
+                        email: document.getElementById("email").value
+                    })
+                }).then(res => res.json())
+                .then(res => console.log(res));
+        }
+    </script>
+</head>
+
+<body>
+    <form class="formulario">
+        <h1>Registrate cliente</h1>
+        <div class="contenedor">
+
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="NIT" id="NIT">
+            </div>
+
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="Nombre Empresa" id="nombreEmpresa">
+            </div>
+
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="Direccion" id="direccion">
+            </div>
+
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="password" placeholder="Contraseña" id="contrasena">
+            </div>
+
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="Correo" id="email">
+            </div>
+
+            <input type="button" value="Registrate" class="button" onclick="prueba()">
+            <p>Al registrarte, aceptas nuestras Condiciones de uso y Política de privacidad.</p>
+            <p>¿Ya tienes una cuenta?<a class="link" href="loginvista.html">Iniciar Sesion</a></p>
+        </div>
+    </form>
+</body>
+
+</html>
